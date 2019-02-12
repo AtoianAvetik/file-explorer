@@ -1,0 +1,380 @@
+/*--------------------------------------/
+ Settings
+--------------------------------------*/
+
+$button: (
+    height: 53px,
+    padding: 20px,
+    min-width: 201px,
+    border-radius: 0px,
+);
+
+
+/*--------------------------------------/
+ Constructor
+--------------------------------------*/
+
+@mixin create-button($color, $bg, $bg-hover: darken($bg, 10%)) {
+    @extend .btn;
+    color: $color;
+    background: $bg;
+
+    &:hover{
+        background: $bg-hover;
+        text-decoration: none;
+    }
+
+
+    &:disabled, &.-disabled{
+        cursor: default;
+        opacity: 0.5;
+        background: darken($bg, 10%);
+        pointer-events: none;
+
+        &:hover{
+            background: darken($bg, 10%);
+        }
+    }
+
+    &.-hollow{
+        color: $bg;
+        background: transparent;
+        border-color: $bg;
+
+        &:hover{
+            background: $bg;
+            color: $color;
+        }
+    }
+
+    &.-reverse{
+        color: $bg;
+        background: $color;
+        border-color: $color;
+    }
+}
+
+@mixin create-gradient-button($color, $start, $end, $direction, $hover-start: $end, $hover-end: $start) {
+    @extend .btn;
+    color: $color;
+    background: transparent;
+    backface-visibility: hidden;
+    border: none;
+    z-index: 0;
+
+    &:before{
+        border: none;
+        background-repeat: no-repeat;
+        background-image: linear-gradient(#{$direction}, $start 0%, $end 100%);
+        height: 100%;
+        z-index: -1;
+        opacity: 1;
+        transition: opacity 0.2s linear;
+    }
+
+    &:after{
+        content: '';
+        position: absolute;
+        bottom: 0;
+        width: 100%;
+        left: 0;
+        border: none;
+        background-repeat: no-repeat;
+        background-image: linear-gradient(#{$direction}, $hover-start 0%, $hover-end 100%);
+        height: 100%;
+        z-index: -2;
+    }
+
+    &:hover {
+        &:before {
+            opacity: 0;
+        }
+    }
+
+    &.-hollow{
+        color: $end;
+
+        &:before {
+            background: transparent;
+            @include gradient-border($start, $end, 2px, 'to right');
+
+        }
+
+        &:after {
+            background: transparent;
+            @include gradient-border($hover-start, $hover-end, 2px, 'to right');
+        }
+
+        &:hover {
+            span {
+                @include text-gradient(left, $hover-start, $hover-end);
+            }
+        }
+
+        span {
+            @include text-gradient(left, $start, $end);
+        }
+    }
+}
+
+/*--------------------------------------/
+ Classes
+--------------------------------------*/
+
+.btn{
+    height: map-get($button, 'height');
+    line-height: map-get($button, 'height') - 2px;
+    padding: 0 map-get($button, 'padding');
+    border-radius: map-get($button, 'border-radius');
+    min-width: map-get($button, 'min-width');
+    font-weight: 600;
+    margin: 0;
+    font-family: $text-family;
+    font-size: $button-font-size;
+    background: none;
+    position: relative;
+    display: inline-block;
+    cursor: pointer;
+    outline: none;
+    white-space: nowrap;
+    transition: background .2s linear, color .2s linear;
+    border: 1px solid transparent;
+    text-align: left;
+
+    @include media(md){
+        height: map-get($button, 'height') - 10px;
+        line-height: map-get($button, 'height') - 12px;
+        padding: 0 (map-get($button, 'padding') - 10px);
+        font-size: $button-font-size - 4px;
+        min-width: 148px;
+    }
+
+    &:before{
+        content: '';
+        height: 3px;
+        position: absolute;
+        bottom: 0;
+        width: 100%;
+        left: 0;
+        transition: height .2s ease;
+    }
+
+    &:hover{
+        text-decoration: none;
+    }
+
+    &.-auto {
+        min-width: auto;
+    }
+
+    &.-right {
+        text-align: right;
+    }
+
+    &.-icon {
+        position: relative;
+        padding-right: 50px;
+
+        i, mat-icon {
+            position: absolute;
+            right: 25px;
+            top: 50%;
+            transform: translate(50%, -50%);
+        }
+
+        &.-icon-left {
+            i, mat-icon {
+                right: auto;
+                left: 25px;
+                transform: translate(-50%, -50%);
+            }
+        }
+    }
+
+    &.-only-icon {
+        width: 40px;
+        min-width: inherit;
+        height: 40px;
+        line-height: 1;
+        padding: 0;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        flex: 0 0 40px;
+    }
+
+    &.-rounded{
+        border-radius: map-get($button, 'height') / 2;
+    }
+
+    &.-large{
+        height: 42px;
+        line-height: 40px;
+        padding: 0 40px;
+        font-size: $button-font-size + 2px;
+    }
+
+    &.-small{
+        height: 30px;
+        line-height: 28px;
+        padding: 0 15px;
+        font-size: $button-font-size - 2px;
+    }
+
+    &.-wide{
+        width: 100%;
+    }
+
+    .inner-wrap {
+        white-space: normal;
+        display: flex;
+        align-items: center;
+
+        span {
+            display: inline-block;
+            white-space: nowrap;
+            max-width: 100%;
+            text-overflow: ellipsis;
+            overflow: hidden;
+        }
+
+        i {
+            margin-top: 0;
+        }
+    }
+}
+
+.btn-pure{
+    background: none;
+    border: none;
+    padding: 0;
+    margin: 0;
+    font-size: $button-font-size;
+}
+
+.btn-icon {
+    @extend .btn-pure;
+
+    i {
+        margin-left: 1em;
+        font-size: 0.7em;
+        vertical-align: middle;
+        margin-top: -0.2em;
+    }
+}
+
+.btn-link{
+    @extend .btn-pure;
+    @include underline();
+    color: $primary-color;
+    padding-bottom: 2px;
+    line-height: 1;
+}
+
+.btn-group {
+    margin: -10px -10px 0;
+
+    .btn {
+        margin: 10px 10px 0;
+    }
+}
+
+/*--------------------------------------/
+ BUTTONS
+--------------------------------------*/
+
+.btn-default{
+    @include create-button($white, $gray);
+}
+
+/*--------------------------------------/
+ Theme buttons
+--------------------------------------*/
+
+.btn-primary{
+    @include create-button($white, $primary-color);
+}
+
+.btn-secondary{
+    @include create-button($white, $secondary-color);
+}
+
+.btn-tertiary{
+    @include create-button($white, $tertiary-color);
+}
+
+.btn-light{
+    @include create-button($dark, $white);
+}
+
+.btn-dark{
+    @include create-button($white, $dark);
+}
+
+/*--------------------------------------/
+ Action buttons
+--------------------------------------*/
+
+.btn-success{
+    @include create-button($white, $green);
+}
+
+.btn-error{
+    @include create-button($white, $red);
+}
+
+.btn-go{
+    @extend .btn-light;
+    width: 100%;
+    justify-content: flex-start;
+    height: 50px;
+    padding: 0 45px 0 25px;
+    font-size: 24px;
+    border: none;
+
+    span{
+        max-width: 100%;
+        overflow: hidden;
+        text-overflow: ellipsis;
+        position: relative;
+    }
+
+    @include media(sm){
+        padding: 0 40px 0 15px;
+        height: 42px;
+        line-height: 42px;
+        font-size: 20px;
+    }
+
+    &:before{
+        content: '';
+        left: auto;
+        right: 0;
+        top: 0;
+        height: 100%;
+        width: 36px;
+        background: $primary-color;
+        transition: all .2s linear;
+    }
+
+    &:after{
+        @include icon;
+        //content: $icon-arrow-right;
+        color: $white;
+        position: absolute;
+        top: 50%;
+        right: 11px;
+        transform: translate(0, -50%);
+        font-size: $base-font-size;
+
+    }
+
+    &:hover{
+        color: $white;
+
+        &:before{
+            content: '';
+            width: 100%;
+        }
+    }
+}

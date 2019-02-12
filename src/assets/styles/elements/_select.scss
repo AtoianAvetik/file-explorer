@@ -1,0 +1,304 @@
+/*--------------------------------------/
+ Settings
+--------------------------------------*/
+
+$select: (
+    color: $base-color,
+    bg-color: #f9f9f9,
+    border-color: transparent,
+    border-height: 0,
+    dropdown-border-color: $gray,
+    dropdown-border-height: 0,
+    focus-bg-color: #f9f9f9,
+    focus-border-color: transparent,
+    height: 50px,
+    font-size: $base-font-size,
+    padding: 15px 13px,
+    default-border-radius: 0,
+    border-radius: 5px,
+    arrow-color: $secondary-color,
+    arrow-size: 12px
+);
+
+$select-option: (
+    height: 38px,
+    padding: 12px 12px,
+    color: $base-color,
+    bg-color: #ececec,
+    active-color: $base-color,
+    active-bg-color: #e4e4e4,
+);
+
+$select-multiple: (
+    font-size: $base-font-size - 1px,
+    remove-size: 18px,
+    padding: 0.5em em(13),
+    choise-color: $light,
+    choise-bg-color: $secondary-color,
+    choise-border-radius: 2px,
+    choise-padding: 6px 10px 4px
+);
+
+//---------------------------------------//
+//-------------- SELECT -----------------//
+//---------------------------------------//
+
+@mixin create-select($select: $select) {
+    max-width: 100%;
+    transition: border-color .2s linear;
+    border: map-get($select, 'border-height') solid map-get($select, 'border-color');
+    border-radius: map-get($select, 'default-border-radius');
+    height: map-get($select, 'height');
+    font-size: map-get($select, 'font-size');
+    color: map-get($select, 'color');
+    line-height: map-get($select, 'height') + 1;
+    background-color: map-get($select, 'bg-color');
+    padding: map-get($select, 'padding');
+
+    &:focus{
+        border-color: map-get($select, 'focus-border-color');
+        background-color: map-get($select, 'focus-bg-color');
+    }
+
+    &:disabled, &.-disabled{
+        background-color: rgba(map-get($select, 'bg-color'), .3);
+        cursor: default;
+    }
+
+    &.-hollow{
+        border-color: map-get($select, 'bg-color');
+        background-color: transparent;
+    }
+
+    &.-pure{
+        border: none;
+        background-color: transparent;
+    }
+
+    &.-large{
+        font-size: map-get($select, 'font-size') + 2px;
+        padding: 0.6em;
+        height: map-get($select, 'height') + 6px;
+    }
+
+    &.-small{
+        font-size: map-get($select, 'font-size') - 2px;
+        padding: 0.4em;
+        height: map-get($select, 'height') - 6px;
+
+    }
+
+    &.-wide{
+        width: 100%;
+    }
+
+    &.-rounded{
+        border-radius: 10em;
+        padding-left: .8em;
+        padding-right: .8em;
+        background-position: center right .8em;
+    }
+
+    &.-radius{
+        border-radius: map-get($select, 'border-radius');
+    }
+
+    &.-square{
+        border-radius: 0;
+    }
+}
+@mixin create-select-arrow($select: $select) {
+    &:after, &:before{
+        content: '';
+        position: absolute;
+        height: 2px;
+        width: map-get($select, 'arrow-size');
+        background: map-get($select, 'arrow-color');
+        top: 50%;
+        margin-top: -1px;
+        transition: transform .3s linear;
+    }
+
+    &:after{
+        transform: rotate(40deg);
+        right: 9px;
+    }
+
+    &:before{
+        transform: rotate(-40deg);
+        right: 0;
+    }
+}
+
+/*--------------------------------------/
+ Default select
+--------------------------------------*/
+select{
+    min-width: 180px;
+    background-size: 1em;
+    background: url($image-path + '/elements/select-arrow.svg') no-repeat right .5em center;
+    background-size: .6em;
+    @include create-select;
+    padding-top: 0;
+    padding-bottom: 0;
+
+    &::-ms-expand{
+        display: none;
+    }
+}
+
+/*--------------------------------------/
+ Select2
+--------------------------------------*/
+
+.select2-container, .select2-selection{
+    &--focus, &:focus{
+        outline: none !important;
+    }
+}
+
+.select2-container{
+    height: map-get($select, 'height');
+
+    .select2-selection{
+        @include create-select;
+        display: flex;
+        height: 100%;
+        align-items: center;
+
+        .select2-selection__arrow{
+            height: 100%;
+            right: 12px;
+            @include create-select-arrow;
+
+            b {
+                display: none;
+            }
+        }
+
+        .select2-selection__rendered {
+            padding-left: 0;
+        }
+    }
+
+    .select2-dropdown{
+        border: map-get($select, 'dropdown-border-height') solid map-get($select, 'dropdown-border-color');
+    }
+
+    .select2-search .select2-search__field{
+        font-size: map-get($select, 'font-size');
+    }
+
+    .select2-search--dropdown .select2-search__field{
+        border: none;
+        border-bottom: 1px solid map-get($select, 'dropdown-border-color');
+        margin-bottom: 5px;
+    }
+
+    .select2-results__option[aria-selected]{
+        color: map-get($select-option, 'color');
+        background-color: map-get($select-option, 'bg-color');
+        height: map-get($select-option, 'height');
+        padding: map-get($select-option, 'padding');
+    }
+
+    .select2-results__option--highlighted[aria-selected]{
+        color: map-get($select-option, 'active-color');
+        background-color: map-get($select-option, 'active-bg-color');
+    }
+}
+
+/*--------------------------------------/
+ Select2 Multiple
+--------------------------------------*/
+select[class*=select2][multiple] + .select2{
+    min-width: 180px;
+    width: 100%;
+
+    .select2-selection {
+        line-height: 1;
+        padding: map-get($select-multiple, 'padding');
+    }
+
+    .select2-selection__choice{
+        background-color: map-get($select-multiple, 'choise-bg-color');
+        border-radius: map-get($select-multiple, 'choise-border-radius');
+        border: none;
+        font-size: map-get($select-multiple, 'font-size');
+        line-height: 1;
+        padding: map-get($select-multiple, 'choise-padding');
+        color: map-get($select-multiple, 'choise-color');
+
+        &__remove{
+            color: map-get($select-multiple, 'choise-color');
+            margin-right: 5px;
+            font-size: map-get($select-multiple, 'remove-size');
+            display: inline-block;
+            vertical-align: middle;
+            margin-top: -2px;
+        }
+    }
+}
+
+.select2-selection--multiple {
+    border: none !important;
+}
+
+/*--------------------------------------/
+ Select2 Modifiers
+--------------------------------------*/
+
+.select2{
+    &.-hollow + .select2-container{
+        .select2-selection{
+            border-color: map-get($select, 'bg-color');
+            background-color: transparent;
+        }
+    }
+
+    &.-pure + .select2-container{
+        .select2-selection{
+            border: none;
+            background-color: transparent;
+        }
+    }
+
+    &.-large + .select2-container{
+        font-size: map-get($select, 'font-size') + 2px;
+        height: map-get($select, 'height') + 6px;
+    }
+
+    &.-small + .select2-container{
+        font-size: map-get($select, 'font-size') - 2px;
+        height: map-get($select, 'height') - 6px;
+    }
+
+    &.-wide + .select2-container{
+        width: 100% !important;
+    }
+
+    &.-rounded + .select2-container{
+        .select2-selection{
+            border-radius: 10em;
+            padding-left: .5em;
+            padding-right: .8em;
+            background-position: center right .8em;
+        }
+
+        .select2-selection__arrow{
+            right: 6px;
+        }
+    }
+
+    &.-radius + .select2-container{
+        .select2-selection{
+            border-radius: map-get($select, 'border-radius');
+        }
+    }
+
+    &.-square + .select2-container{
+        .select2-selection{
+            border-radius: 0;
+        }
+    }
+}

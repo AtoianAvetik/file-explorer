@@ -1,0 +1,104 @@
+.hidden{
+    display: none !important;
+}
+
+.text-right{
+    text-align: right;
+}
+
+.text-left{
+    text-align: left;
+}
+
+.text-center{
+    text-align: center;
+}
+
+.text-justify{
+    text-align: justify;
+}
+
+.hide{
+    display: none;
+}
+
+.wide{
+    width: 100%;
+}
+
+/*--------------------------------------/
+ Hide/Show
+--------------------------------------*/
+@each $breakpoint in map-keys($grid-breakpoints) {
+    $infix: breakpoint-infix($breakpoint, $grid-breakpoints);
+
+    @include media-breakpoint($breakpoint, $grid-breakpoints) {
+        .#{$infix}-hide {
+            display: none;
+        }
+        .#{$infix}-show {
+            display: block;
+        }
+    }
+}
+
+/*--------------------------------------/
+ Flexbox
+--------------------------------------*/
+.flex-box{
+    display: flex !important;
+}
+
+.h-start, .h-end, .h-center, .h-between, .h-around,
+.v-start, .v-end, .v-center, .v-between, .v-around,
+.d-column, .d-row{
+    @extend .flex-box;
+}
+
+.d-column{
+    flex-direction: column;
+}
+
+.d-row{
+    flex-direction: row;
+}
+
+.v-start{
+    align-items: flex-start;
+}
+
+.v-end{
+    align-items: flex-end;
+}
+
+.v-center{
+    align-items: center;
+}
+
+.v-between{
+    align-content: space-between;
+}
+
+.v-around{
+    align-content: space-around;
+}
+
+.h-start{
+    justify-content: flex-start;
+}
+
+.h-end{
+    justify-content: flex-end;
+}
+
+.h-center{
+    justify-content: center;
+}
+
+.h-between{
+    justify-content: space-between;
+}
+
+.h-around{
+    justify-content: space-around;
+}

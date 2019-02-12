@@ -1,0 +1,66 @@
+/*--------------------------------------/
+ Core
+--------------------------------------*/
+@import "assets/styles/core/reset";
+@import "assets/styles/core/media";
+@import "assets/styles/core/mixins";
+@import "assets/styles/core/functions";
+
+
+/*--------------------------------------/
+ Base
+--------------------------------------*/
+@import "assets/styles/base/variables";
+@import "assets/styles/base/helpers-custom";
+@import "assets/styles/base/fonts";
+@import "assets/styles/base/typography";
+@import "assets/styles/base/main";
+@import "assets/styles/base/wysiwyg";
+
+
+/*-----------------------------------------/
+  Grid
+------------------------------------------*/
+@import "assets/styles/grid/grid";
+@import "assets/styles/base/gap";
+
+/*-----------------------------------------/
+  Helpers
+------------------------------------------*/
+@import "assets/styles/core/helpers";
+
+/*--------------------------------------/
+ Elements
+--------------------------------------*/
+@import "assets/styles/elements/button";
+@import "assets/styles/elements/input";
+@import "assets/styles/elements/select";
+@import "assets/styles/elements/table";
+@import "assets/styles/elements/button";
+@import "assets/styles/elements/input";
+@import "assets/styles/elements/checkbox";
+@import "assets/styles/elements/radio-button";
+@import "assets/styles/elements/select";
+
+
+/*--------------------------------------/
+ Form
+--------------------------------------*/
+@import "assets/styles/form/form";
+
+
+/*--------------------------------------/
+ Components
+--------------------------------------*/
+@import "assets/styles/components/loader";
+
+
+/*--------------------------------------/
+ Plugins
+--------------------------------------*/
+@import '~@angular/material/prebuilt-themes/indigo-pink.css';
+
+
+/*--------------------------------------/
+ Plugins Customize
+--------------------------------------*/

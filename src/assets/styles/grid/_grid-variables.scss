@@ -1,0 +1,87 @@
+// Grid Variables
+//Flex variables for row
+$row_modifiers: row column start center end around between items-top items-middle items-bottom top middle bottom v-between zero-space clear nowrap;
+
+@mixin _assert-ascending($map, $map-name) {
+    $prev-key: null;
+    $prev-num: null;
+    @each $key, $num in $map{
+        @if $prev-num == null{
+            // Do nothing
+        } @else if not comparable($prev-num, $num){
+            @warn "Potentially invalid value for #{$map-name}: This map must be in ascending order, but key '#{$key}' has value #{$num} whose unit makes it incomparable to #{$prev-num}, the value of the previous key '#{$prev-key}' !";
+        } @else if $prev-num >= $num{
+            @warn "Invalid value for #{$map-name}: This map must be in ascending order, but key '#{$key}' has value #{$num} which isn't greater than #{$prev-num}, the value of the previous key '#{$prev-key}' !";
+        }
+        $prev-key: $key;
+        $prev-num: $num;
+    }
+}
+
+@mixin _assert-starts-at-zero($map) {
+    $values: map-values($map);
+    $first-value: nth($values, 1);
+    @if $first-value != 0px{
+        @warn "First breakpoint in `$grid-breakpoints` must start at 0, but starts at #{$first-value}.";
+    }
+}
+
+@function mapReverse ($map) {
+    $result: null;
+
+    @if type-of($map) == "map"{
+        $keys: map-keys($map);
+        $map-reversed: ();
+
+        @for $i from length($keys) through 1{
+            $map-reversed: map-merge(
+                    $map-reversed,
+                    (nth($keys, $i): map-get($map, nth($keys, $i)))
+            );
+        }
+
+        @if type-of($map-reversed) == "map"{
+            $result: $map-reversed;
+        } @else{
+            @warn 'There was an error reversing the order of "#{$map}"';
+        }
+    } @else{
+        @warn '"#{$map}" is not a valid map';
+    }
+
+    @return $result;
+}
+
+// Grid breakpoints
+//
+// Define the minimum dimensions at which your layout will change,
+// adapting to different screen sizes, for use in media queries.
+
+//@include _assert-ascending($grid-breakpoints, "$grid-breakpoints");
+//@include _assert-starts-at-zero($grid-breakpoints);
+
+// Grid columns
+//
+// Set the number of columns and specify the width of the gutters.
+
+//$grid-columns: 12 !default;
+//$grid-gutter-width-base: 30px !default;
+//$grid-gutter-widths: (
+//    wide: $grid-gutter-width-base,
+//    xl: $grid-gutter-width-base,
+//    lg: $grid-gutter-width-base,
+//    md: $grid-gutter-width-base,
+//    sm: $grid-gutter-width-base,
+//) !default;
+
+//Custom changes min-width to max-width
+$max-width: true;
+@if $max-width == true{
+    //$grid-breakpoints:  mapReverse($grid-breakpoints);
+    //$grid-gutter-widths:  mapReverse($grid-gutter-widths);
+}
+
+
+
+
+

@@ -1,0 +1,115 @@
+/*--------------------------------------/
+ Settings
+--------------------------------------*/
+
+$input: (
+    color: $base-color,
+    bg-color: transparent,
+    border-color: $gray,
+    border-height: 1px,
+    focus-bg-color: $white,
+    focus-border-color: $primary-color,
+    height: 30px,
+    font-size: $base-font-size,
+    padding: 5px 10px,
+    default-border-radius: 0,
+    border-radius: 5px,
+);
+
+//---------------------------------------//
+//--------------- INPUT -----------------//
+//---------------------------------------//
+
+[type='text'],
+[type='password'],
+[type='date'],
+[type='datetime'],
+[type='datetime-local'],
+[type='month'],
+[type='week'],
+[type='email'],
+[type='number'],
+[type='search'],
+[type='tel'],
+[type='time'],
+[type='url'],
+[type='color'],
+textarea{
+    border: none;
+    border-radius: 0;
+    padding: 0.5em;
+    font-size: $base-font-size;
+}
+
+@mixin create-input($input: $input) {
+    font-family: $form-family;
+    max-width: 100%;
+    transition: border-color .2s linear;
+    border: map-get($input, 'border-height') solid map-get($input, 'border-color');
+    border-radius: map-get($input, 'default-border-radius');
+    height: map-get($input, 'height');
+    font-size: map-get($input, 'font-size');
+    color: map-get($input, 'color');
+    line-height: 1;
+    background-color: map-get($input, 'bg-color');
+    padding: map-get($input, 'padding');
+    width: 100%;
+
+    &:focus{
+        border-color: map-get($input, 'focus-border-color');
+        background-color: map-get($input, 'focus-bg-color');
+    }
+
+    &:disabled, &.-disabled{
+        background-color: rgba(map-get($input, 'bg-color'), .3);
+        cursor: default;
+    }
+
+    &.-hollow{
+        border-color: map-get($input, 'bg-color');
+        background: none;
+    }
+
+    &.-pure{
+        border: none;
+        background: none;
+    }
+
+    &.-large{
+        font-size: map-get($input, 'font-size') + 2px;
+        padding: 0.6em;
+        height: 42px;
+    }
+
+    &.-small{
+        font-size: map-get($input, 'font-size') - 2px;
+        padding: 0.4em;
+        height: 30px;
+    }
+
+    &.-wide{
+        width: 100%;
+    }
+
+    &.-rounded{
+        border-radius: 10em;
+        padding-left: .8em;
+        padding-right: .8em;
+    }
+
+    &.-radius{
+        border-radius: map-get($input, 'border-radius');
+    }
+
+    &.-square{
+        border-radius: 0;
+    }
+}
+
+/*--------------------------------------/
+ Default input
+--------------------------------------*/
+
+.input {
+    @include create-input;
+}

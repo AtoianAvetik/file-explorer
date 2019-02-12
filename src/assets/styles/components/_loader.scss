@@ -1,0 +1,147 @@
+// Page loader
+
+.app-loader {
+	left: 0;
+	right: 0;
+	top: 0;
+	bottom: 0;
+	position: absolute;
+	display: flex;
+	align-items: center;
+	justify-content: center;
+
+	&_overlay {
+		left: 0;
+		top: 0;
+		position: absolute;
+		display: block;
+		width: 100%;
+		height: 100%;
+		background: rgba(0, 0, 0, 0.2);
+	}
+
+	&_wrapper {
+		display: flex;
+		align-items: center;
+		background: #fff;
+		padding: 12px 20px 9px;
+		border-radius: 5px;
+
+		.-single & {
+			background-color: transparent;
+		}
+
+		p {
+			display: inline-block;
+			margin-left: 12px;
+			line-height: 1.2;
+			margin-bottom: 0;
+		}
+	}
+
+	&_spinner-wrap {
+		display: flex;
+		align-items: center;
+		justify-content: center;
+	}
+}
+
+//Spinners
+.app-loader_spinner.spinner-v1 {
+	border: 2px solid rgba(#A3A3A3, .5);
+	border-bottom-color: #353535;
+	animation: rotate 1s linear 0s infinite;
+	width: 20px;
+	border-radius: 100%;
+
+	&:after {
+		content: '';
+		display: block;
+		padding-bottom: 100%;
+	}
+
+	.-single & {
+		width: 35px;
+		border: 2px solid rgba(255, 255, 255, .5);
+		border-bottom-color: #353535;
+	}
+}
+
+.app-loader_spinner.sk-circle {
+	margin: 0 auto;
+	width: 20px;
+	height: 20px;
+	position: relative;
+
+	.-single & {
+		width: 40px;
+		height: 40px;
+
+		.sk-child:before {
+			width: 15%;
+			height: 15%;
+		}
+	}
+
+	.sk-child {
+		width: 100%;
+		height: 100%;
+		position: absolute;
+		left: 0;
+		top: 0;
+
+		&:before {
+			content: '';
+			display: block;
+			margin: 0 auto;
+			width: 11%;
+			height: 11%;
+			background-color: #333;
+			border-radius: 100%;
+			-webkit-animation: sk-circleBounceDelay 1.2s infinite ease-in-out both;
+			animation: sk-circleBounceDelay 1.2s infinite ease-in-out both;
+
+			.-single & {
+				background-color: #fff;
+			}
+		}
+	}
+
+	@for $i from 1 through 11 {
+		.sk-circle#{$i+1} { transform: rotate($i*30deg); }
+		.sk-circle#{$i+1}:before { animation-delay: -1.2+$i*0.1s; }
+	}
+}
+
+// Animations
+
+@-webkit-keyframes sk-circleBounceDelay {
+	0%, 80%, 100% {
+		-webkit-transform: scale(0);
+		transform: scale(0);
+	}
+	40% {
+		-webkit-transform: scale(1);
+		transform: scale(1);
+	}
+}
+
+@keyframes sk-circleBounceDelay {
+	0%, 80%, 100% {
+		-webkit-transform: scale(0);
+		transform: scale(0);
+	}
+	40% {
+		-webkit-transform: scale(1);
+		transform: scale(1);
+	}
+}
+
+@include keyframes(rotate) {
+	from {
+		@include rotate(0deg);
+	}
+	to {
+		@include rotate(360deg);
+	}
+}

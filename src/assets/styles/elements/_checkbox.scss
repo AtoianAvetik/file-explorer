@@ -1,0 +1,77 @@
+/*--------------------------------------/
+ Settings
+--------------------------------------*/
+
+$checkbox: (
+    bg-color: $white,
+    width: 16px,
+    height: 16px,
+    border-color: $primary-color,
+    border-height: 1px,
+    border-radius: 0,
+    icon-size: 14px,
+    icon-color: $secondary-color
+);
+
+//---------------------------------------//
+//-------------- CHECKBOX ---------------//
+//---------------------------------------//
+
+@mixin create-checkbox-label($checkbox: $checkbox) {
+    position: relative;
+    padding: 0 0 0 30px;
+    cursor: pointer;
+    display: inline-block;
+
+    &:before {
+        content: '';
+        position: absolute;
+        bottom: 100%;
+        margin-bottom: -.4em;
+        transform: translateY(50%);
+        left: 0;
+        width: map-get($checkbox, 'width');
+        height: map-get($checkbox, 'height');
+        background: map-get($checkbox, 'bg-color');
+        border: map-get($checkbox, 'border-height') solid map-get($checkbox, 'border-color');
+        border-radius: map-get($checkbox, 'border-radius');
+        transition: .2s;
+    }
+
+    &:after {
+        content: '';
+        position: absolute;
+        bottom: 100%;
+        margin-bottom: -.4em;
+        left: map-get($checkbox, 'width') / 2;
+        width: map-get($checkbox, 'icon-size');
+        height: map-get($checkbox, 'icon-size');
+        background: map-get($checkbox, 'icon-color');
+        border-radius: map-get($checkbox, 'border-radius');
+        transition: .2s;
+        transform: translate(-50%, 50%) scale(.001);
+    }
+}
+@mixin create-checkbox-input($checkbox: $checkbox) {
+    position: absolute;
+    z-index: -1;
+    opacity: 0;
+
+    &:checked + label:after {
+        transform: translate(-50%, 50%);
+    }
+}
+
+/*--------------------------------------/
+ Default checkbox
+--------------------------------------*/
+
+.checkbox {
+    label {
+        @include create-checkbox-label;
+    }
+
+    input {
+        @include create-checkbox-input;
+    }
+}

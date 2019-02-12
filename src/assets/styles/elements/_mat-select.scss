@@ -1,0 +1,31 @@
+.select.mat-select{
+    background: $white;
+    font-size: $base-font-size;
+    font-family: $text-family;
+    color: $base-color;
+    height: 32px;
+
+    .mat-select-trigger{
+        height: 100%;
+    }
+
+    .mat-select-value{
+        vertical-align: middle;
+        padding-left: 10px;
+        border: 1px solid $gray;
+    }
+
+    .mat-select-arrow-wrapper{
+        background: $primary-color;
+        padding-left: 3px;
+        padding-right: 3px;
+    }
+
+    .mat-select-arrow{
+        color: $white;
+        border-left: 5px solid transparent;
+        border-right: 5px solid transparent;
+        border-top: 10px solid;
+    }
+}
+

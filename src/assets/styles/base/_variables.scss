@@ -1,0 +1,78 @@
+/*--------------------------------------/
+ Path
+--------------------------------------*/
+$image-path:  '/assets/img/';
+$font-path:  '/assets/fonts/';
+$fa-font-path:  '/assets/fonts/FontAwesome/';
+
+/*--------------------------------------/
+ Base
+--------------------------------------*/
+$container-width: 1200px;
+$header-height: 80px;
+$header-height-md: 62px;
+$margin-gap: 20px;
+$padding-gap: 40px;
+
+/*--------------------------------------/
+ Colors
+--------------------------------------*/
+$white: #fff;
+$black: #000;
+$light: #f0f0f0;
+$dark: #4E4E4E;
+$gray-light: #F5F5F5;
+$gray: #cad2d8;
+$gray-dark: #a7a7a7;
+
+$red: #ed6d72;
+$green: #b6c932;
+$yellow: #F8B500;
+$blue: #003399;
+$orange: #e35205;
+
+$base-color: #9b9b9b;
+$primary-color: $blue;
+$secondary-color: $green;
+$tertiary-color: $orange;
+
+/*--------------------------------------/
+ Font size
+--------------------------------------*/
+$base-font-size: 12px;
+$small-font-size: 10px;
+$large-font-size: 15px;
+$button-font-size: 16px;
+
+/*--------------------------------------/
+ Fonts
+--------------------------------------*/
+$Roboto: 'Roboto', sans-serif;
+
+$fa-family: 'FontAwesome', sans-serif;
+$text-family: $Roboto;
+$heading-family: $Roboto;
+$form-family: $Roboto;
+
+/*--------------------------------------/
+ Grid
+--------------------------------------*/
+$grid-columns: 12 !default;
+$grid-gutter-width-base: 20px !default;
+$grid-breakpoints: (
+    wide: 0px,
+    xl: 1280px,
+    lg: 860px,
+    md: 768px,
+    sm: 640px,
+    xs: 480px
+) !default;
+
+$grid-gutter-widths: (
+    wide: $grid-gutter-width-base,
+    xl: $grid-gutter-width-base,
+    lg: $grid-gutter-width-base / 1.5,
+    md: $grid-gutter-width-base / 1.5,
+    sm: $grid-gutter-width-base / 2,
+    xs: $grid-gutter-width-base / 3
+) !default;

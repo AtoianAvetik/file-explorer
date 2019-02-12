@@ -1,0 +1,68 @@
+/*--------------------------------------/
+ Settings
+--------------------------------------*/
+
+$form-control: $input;
+
+//---------------------------------------//
+//------------ FORM CONTROL -------------//
+//---------------------------------------//
+
+.form-control {
+    @include create-input($form-control);
+
+    @include placeholder {
+        color: transparent;
+        font-weight: bold;
+        font-size: 12px;
+    }
+
+    @include media(md) {
+        background-color: $white;
+
+        @include placeholder {
+            color: #9b9b9b;
+        }
+    }
+
+}
+
+input.form-control {
+    @extend .form-control;
+}
+
+textarea.form-control {
+    @extend .form-control;
+    min-width: 100%;
+    height: auto;
+    line-height: 1.4;
+    resize: none;
+
+    &.-static{
+        resize: none;
+    }
+}
+
+//---------- form control error ---------//
+
+form.-submitted .form-control.ng-invalid {
+    border-color: $red;
+}
+
+//------- form control placeholder ------//
+
+.form-control-placeholder {
+    position: absolute;
+    top: 0;
+    left: 0;
+    padding: 10px 0 0 10px;
+    transition: all 200ms;
+    opacity: 0.5;
+}
+
+.form-control:focus + .form-control-placeholder,
+.form-control:valid + .form-control-placeholder {
+    font-size: 75%;
+    transform: translate3d(0, -110%, 0);
+    opacity: 1;
+}

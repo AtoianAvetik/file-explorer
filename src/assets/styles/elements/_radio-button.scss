@@ -1,0 +1,77 @@
+/*--------------------------------------/
+ Settings
+--------------------------------------*/
+
+$radio: (
+    bg-color: $white,
+    width: 16px,
+    height: 16px,
+    border-color: $primary-color,
+    border-height: 1px,
+    border-radius: 0,
+    icon-size: 14px,
+    icon-color: $secondary-color
+);
+
+/*--------------------------------------/
+ Radio button
+--------------------------------------*/
+
+@mixin create-radio-label($radio: $radio) {
+    position: relative;
+    padding: 0 0 0 30px;
+    cursor: pointer;
+    display: inline-block;
+
+    &:before {
+        content: '';
+        position: absolute;
+        bottom: 100%;
+        margin-bottom: -.4em;
+        transform: translateY(50%);
+        left: 0;
+        width: map-get($radio, 'width');
+        height: map-get($radio, 'height');
+        background: map-get($radio, 'bg-color');
+        border: map-get($radio, 'border-height') solid map-get($radio, 'border-color');
+        border-radius: map-get($radio, 'border-radius');
+        display: inline-block;
+    }
+
+    &:after {
+        content: '';
+        position: absolute;
+        bottom: 100%;
+        margin-bottom: -.4em;
+        left: map-get($radio, 'width') / 2;
+        width: map-get($radio, 'icon-size');
+        height: map-get($radio, 'icon-size');
+        transition: all .2s linear;
+        background: map-get($radio, 'icon-color');
+        border-radius: map-get($radio, 'border-radius');
+        transform: translate(-50%, 50%) scale(.001);
+    }
+}
+@mixin create-radio-input($radio: $radio) {
+    position: absolute;
+    z-index: -1;
+    opacity: 0;
+
+    &:checked + label:after {
+        transform: translate(-50%, 50%);
+    }
+}
+
+/*--------------------------------------/
+ Default radio button
+--------------------------------------*/
+
+.radio-button {
+    label {
+        @include create-radio-label;
+    }
+
+    input {
+        @include create-radio-input;
+    }
+}

@@ -1,0 +1,281 @@
+@mixin overlay {
+    position: absolute;
+    left: 0;
+    top: 0;
+    width: 100%;
+    height: 100%;
+}
+
+@mixin bg {
+    background-repeat: no-repeat;
+    background-position: center;
+    background-size: cover;
+}
+
+@mixin darker-hover($color) {
+    color: $color;
+    transition: color .3s ease-out;
+
+    &:hover {
+        color: $color - #333;
+    }
+}
+
+@mixin underline-hover($height: 1px, $color: inherit) {
+    position: relative;
+    display: inline-block;
+
+    &:before {
+        content: '';
+        position: absolute;
+        height: 0;
+        color: $color;
+        border-bottom: $height solid;
+        width: 0;
+        bottom: 0;
+        left: 50%;
+        transition: all .3s linear;
+        opacity: 1;
+    }
+
+    &:hover:before {
+        width: 100%;
+        left: 0;
+        opacity: 1;
+    }
+}
+
+@mixin double-underline-hover($height: 1px, $color: inherit, $padding-right: false) {
+    position: relative;
+    display: inline-block;
+
+    &:before {
+        content: '';
+        display: block;
+        position: absolute;
+        left: 0;
+        bottom: 0;
+        width: 0;
+        color: $color;
+        border-bottom: $height solid;
+        opacity: 0.4;
+        transition: width .5s;
+    }
+
+    &:after {
+        content: '';
+        display: block;
+        position: absolute;
+        left: 0;
+        bottom: 0;
+        width: 0;
+        color: $color;
+        border-bottom: $height solid;
+        transition: width .5s;
+        transition-delay: .3s;
+    }
+
+    &:hover {
+
+        &:before {
+            width: 100%;
+        }
+
+        &:after {
+            width: 100%;
+        }
+    }
+}
+
+@mixin underline-out($height, $color) {
+
+    &:before {
+        content: '';
+        display: block;
+        position: absolute;
+        left: 0;
+        bottom: 0;
+        height: $height;
+        width: 0;
+        transition: width 0s ease, background .5s ease;
+    }
+
+    &:after {
+        content: '';
+        display: block;
+        position: absolute;
+        right: 0;
+        bottom: 0;
+        height: $height;
+        width: 0;
+        background: $color;
+        transition: width .5s ease;
+    }
+
+    &:hover {
+
+        &:before {
+            width: 100%;
+            background: $color;
+            transition: width .5s ease;
+        }
+
+        &:after {
+            width: 100%;
+            background: transparent;
+            transition: all 0s ease;
+        }
+    }
+}
+
+@mixin underline($height: 1px, $color: inherit) {
+    position: relative;
+    display: inline-block;
+
+    &:after {
+        content: '';
+        position: absolute;
+        left: 0;
+        right: 0;
+        bottom: 0;
+        border-bottom: $height solid;
+    }
+
+    &:hover:after {
+        animation: underline-slide .6s linear;
+    }
+
+    @keyframes underline-slide {
+        0% {
+            left: 0;
+        }
+
+        50% {
+            left: 100%;
+            right: 0;
+        }
+
+        51% {
+            left: 0;
+            right: 100%;
+        }
+
+        100% {
+            right: 0;
+        }
+    }
+}
+
+@mixin hide-scroll {
+    -ms-overflow-style: none;
+    overflow: -moz-scrollbars-none;
+
+    &::-webkit-scrollbar {
+        display: none;
+    }
+}
+
+@mixin clearfix {
+    *zoom: 1;
+
+    &:before, &:after {
+        content: '';
+        display: table;
+    }
+
+    &:after {
+        clear: both;
+    }
+
+}
+
+@mixin ie-hack {
+    //ie edge
+    @supports (-ms-ime-align:auto) {
+        @content;
+    }
+
+    //ie 10+
+    @media screen and (-ms-high-contrast: active), (-ms-high-contrast: none) {
+        @content;
+    }
+}
+
+@mixin ie-10-hack {
+    @media screen and (-ms-high-contrast: active), (-ms-high-contrast: none) {
+        @content;
+    }
+}
+
+@mixin aspect-ratio($width, $height) {
+    position: relative;
+
+    &:before {
+        content: '';
+        display: block;
+        width: 100%;
+        padding-top: ($height / $width) * 100%;
+    }
+
+    > .ratio-content {
+        position: absolute;
+        top: 0;
+        left: 0;
+        right: 0;
+        bottom: 0;
+    }
+}
+
+@mixin placeholder {
+    &::-webkit-input-placeholder {
+        @content
+    }
+    &:-moz-placeholder {
+        @content
+    }
+    &::-moz-placeholder {
+        @content
+    }
+    &:-ms-input-placeholder {
+        @content
+    }
+}
+
+@mixin autocomplete($bg-color: $white, $text-color: $base-color) {
+    -webkit-box-shadow: 0 0 0px 1000px $bg-color inset !important;
+    -webkit-text-fill-color: $text-color !important;
+}
+
+@mixin icon {
+    font-family: 'iconFont', sans-serif;
+    font-style: normal !important;
+    font-weight: normal !important;
+    font-variant: normal !important;
+    text-transform: none !important;
+    speak: none;
+    line-height: 1;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+    font-size: 1em;
+}
+
+@mixin keyframes($name) {
+    @-webkit-keyframes #{$name} {
+        @content;
+    }
+    @-moz-keyframes #{$name} {
+        @content;
+    }
+    @-ms-keyframes #{$name} {
+        @content;
+    }
+    @keyframes #{$name} {
+        @content;
+    }
+}
+
+@mixin rotate($deg){
+    -webkit-transform: rotate($deg);
+    -ms-transform: rotate($deg);
+    transform: rotate($deg);
+}

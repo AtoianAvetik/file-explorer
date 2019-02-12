@@ -1,0 +1,8 @@
+
+@function to-number($number) {
+	@return $number / ($number * 0 + 1);
+}
+
+@function em($number, $base: $base-font-size){
+	@return ($number / to-number($base) ) * 1em;
+}

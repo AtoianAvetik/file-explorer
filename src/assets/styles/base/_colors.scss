@@ -1,0 +1,45 @@
+$white: #fff;
+$light: #f0f0f0;
+$black: #000;
+$dark: #212429;
+$base: #676767;
+$primary-light: #6c8bcd;
+$primary: #3a5e9c;
+$primary-dark: #274272;
+$secondary-light: #ffe74c;
+$secondary: #f8b500;
+$secondary-dark: #a77900;
+$gray-light: #e1e1e1;
+$gray: #a5a5a5;
+$gray-dark: #5b5b5b;
+$success: #00a672;
+$error: #ed6d72;
+
+$colors: (
+    "white": $white,
+    "light": $light,
+    "black": $black,
+    "dark": $dark,
+    "base": $base,
+    "primary-light": $primary-light,
+    "primary": $primary,
+    "primary-dark": $primary-dark,
+    "secondary-light": $secondary-light,
+    "secondary": $secondary,
+    "secondary-dark": $secondary-dark,
+    "gray-light": $gray-light,
+    "gray": $gray,
+    "gray-dark": $gray-dark,
+    "success": $success,
+    "error": $error
+);
+
+@each $color in $colors{
+    $key: nth($color, 1);
+    $value: nth($color, 2);
+
+    .color-#{$key}{
+        color: $value;
+    }
+}
+

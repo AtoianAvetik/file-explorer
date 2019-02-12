@@ -1,0 +1,142 @@
+@mixin prefix($declarations, $prefixes: ()) {
+  @each $property, $value in $declarations {
+    @each $prefix in $prefixes {
+      #{'-' + $prefix + '-' + $property}: $value;
+    }
+
+    #{$property}: $value;
+  }
+}
+//---------------------------------------------------------------------------------------
+// Mixin for using flex properties like in grid (.row class modifiers)
+// PARAMETERS:
+// $props... - one or many properties separated by comma
+// Examples of use:
+// .header { display: flex; @include flex_util(end, middle); }
+// .footer { display: flex; @include breakpoint(768) { @include flex_util(bottom); } }
+// NOTE: all selectors where flex_util included should have display: flex; property
+// useful link about flex - https://css-tricks.com/snippets/css/a-guide-to-flexbox/
+//---------------------------------------------------------------------------------------
+@mixin flex_util($props...) {
+
+  @each $prop in $props {
+
+    //default child blocks order
+    @if $prop == 'row' {
+
+      @include prefix( ( flex-direction: row ), webkit ms );
+
+      //reverse child blocks order
+    } @else if $prop == 'reverse' {
+
+      @include prefix( ( flex-direction: row-reverse ), webkit ms );
+
+      //vertical child blocks order
+    } @else if $prop == 'column' {
+
+      @include prefix( ( flex-direction: column ), webkit ms );
+
+      > [class*='col'] { max-width: 100%; }
+
+      //vertical reverse child blocks order
+    } @else if $prop == 'v-reverse' {
+
+      @include prefix( ( flex-direction: column-reverse ), webkit ms );
+
+      //horizontal aligning of child blocks at START
+    } @else if $prop == 'start' {
+
+      -ms-flex-pack: start; @include prefix( ( justify-content: flex-start ), webkit );
+
+      //horizontal aligning of child blocks at CENTER
+    } @else if $prop == 'center' {
+
+      -ms-flex-pack: center; @include prefix( ( justify-content: center ), webkit );
+
+      //horizontal aligning of child blocks at END
+    } @else if $prop == 'end' {
+
+      -ms-flex-pack: end; @include prefix( ( justify-content: flex-end ), webkit );
+
+      //add equal (calculated by browser) space to child blocks on sides
+    } @else if $prop == 'around' {
+
+      @include prefix( ( justify-content: space-around ), webkit );
+
+      //add equal (calculated by browser) space BETWEEN child blocks
+    } @else if $prop == 'between' {
+
+      -ms-flex-pack: justify; @include prefix( ( justify-content: space-between ), webkit );
+
+      //vertical aligning of child blocks at TOP
+    } @else if $prop == 'items-top' {
+
+      -ms-flex-align: start; @include prefix( ( align-items: flex-start ), webkit );
+
+      //vertical aligning of child blocks at MIDDLE
+    } @else if $prop == 'items-middle' {
+
+      -ms-flex-align: center; @include prefix( ( align-items: center ), webkit );
+
+
+      //vertical aligning of child blocks at BOTTOM
+    } @else if $prop == 'items-bottom' {
+
+      -ms-flex-align: end; @include prefix( ( align-items: flex-end ), webkit );
+
+      //vertical aligning of child blocks at font's baseline
+    } @else if $prop == 'items-baseline' {
+
+      -ms-flex-align: baseline; @include prefix( ( align-items: baseline ), webkit );
+
+      //vertical aligning of child blocks stretch to fill the container (still respect min-width/max-width)
+    } @else if $prop == 'items-stretch' {
+
+      -ms-flex-align: stretch; @include prefix( ( align-items: stretch ), webkit );
+
+      //vertical aligning of child blocks at TOP
+    } @else if $prop == 'top' {
+
+      -ms-flex-align: start; @include prefix( ( align-items: flex-start ), webkit );
+
+      //vertical aligning of child blocks at MIDDLE
+    } @else if $prop == 'middle' {
+
+      -ms-flex-align: center; @include prefix( ( align-items: center ), webkit );
+
+      //vertical aligning of child blocks at BOTTOM
+    } @else if $prop == 'bottom' {
+
+      -ms-flex-align: end; @include prefix( ( align-items: flex-end ), webkit );
+
+      //add equal (calculated by browser) vertical space BETWEEN child blocks
+    } @else if $prop == 'v-between' {
+
+      @include prefix( ( align-content: space-between ), webkit );
+
+      //add equal (calculated by browser) vertical space AROUND child blocks
+    } @else if $prop == 'v-around' {
+
+      @include prefix( ( align-content: space-around ), webkit );
+
+      //vertical aligning of child blocks (default): lines stretch to take up the remaining space
+    } @else if $prop == 'stretch' {
+
+      @include prefix( ( align-content: stretch ), webkit );
+
+      //remove default side paddings of flexgrid columns
+    } @else if $prop == 'zero-space' { margin-left: 0; margin-right: 0;
+
+      [class*='col'] { padding-left: 0; padding-right: 0; padding-bottom: 0; }
+
+      //add clear property to flex block for clear display flex
+    } @else if $prop == 'clear' { display: block !important;
+
+      //add nowrap property to flex block
+    } @else if $prop == 'nowrap' { @include prefix( ( flex-wrap: nowrap ), webkit ms );
+
+      //add wrap property to flex block
+    } @else if $prop == 'wrap' { @include prefix( ( flex-wrap: wrap ), webkit ms ); }
+
+  }
+}
