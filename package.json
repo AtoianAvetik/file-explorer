@@ -1,23 +1,23 @@
 {
   "name": "file-explorer",
-  "version": "0.0.0",
+  "version": "0.0.1",
   "main": "electron/dist/main.js",
   "scripts": {
     "ng": "ng",
     "start": "ng serve",
     "build": "ng build",
+    "prod": "ng build --prod --output-hashing none --base-href ./",
     "test": "ng test",
     "lint": "ng lint",
     "e2e": "ng e2e",
     "electron": "electron .",
-    "electron:serve": "ng build --base-href ./ && tsc --p electron && electron . --serve",
+    "electron:serve": "ng build --base-href ./ && tsc --p electron && electron .",
     "electron:package": "electron-packager . --platform=win32",
-    "electron:build": "ng build --base-href ./ && tsc --p electron && electron .",
-    "electron:prod": "ng build --prod --output-hashing none --base-href ./ && tsc --p electron && electron .",
-    "package:linux": "electron-packager . $npm_package_name-$npm_package_version --ignore=src --ignore=node_modules --ignore=e2e --ignore=.*\\.conf\\.js --ignore=\"(angular-cli|tsconfig)\\.json\" --ignore=webpack.*\\.js --out=packages --platform=linux --arch=all --overwrite",
-    "package:mac": "electron-packager . $npm_package_name-$npm_package_version --ignore=src --ignore=node_modules --ignore=e2e --ignore=.*\\.conf\\.js --ignore=\"(angular-cli|tsconfig)\\.json\" --ignore=webpack.*\\.js --out=packages --platform=darwin --arch=all --overwrite ",
-    "package:win": "electron-packager . $npm_package_name-$npm_package_version --ignore=src --ignore=node_modules --ignore=e2e --ignore=.*\\.conf\\.js --ignore=\"(angular-cli|tsconfig)\\.json\" --ignore=webpack.*\\.js --out=packages --platform=win32 --arch=all --overwrite ",
-    "package:all": "electron-packager . $npm_package_name-$npm_package_version --ignore=src --ignore=node_modules --ignore=e2e --ignore=.*\\.conf\\.js --ignore=\"(angular-cli|tsconfig)\\.json\" --ignore=webpack.*\\.js --out=packages --all --overwrite"
+    "electron:prod": "npm run prod && tsc --p electron && electron .",
+    "package:linux": "npm run prod && electron-packager . file-explorer-0.0.1 --ignore=src --ignore=node_modules --ignore=e2e --ignore=.*\\.conf\\.js --ignore=\"(angular-cli|tsconfig)\\.json\" --ignore=webpack.*\\.js --out=packages --platform=linux --arch=all --overwrite",
+    "package:mac": "npm run prod && electron-packager . file-explorer-0.0.1 --ignore=src --ignore=node_modules --ignore=e2e --ignore=.*\\.conf\\.js --ignore=\"(angular-cli|tsconfig)\\.json\" --ignore=webpack.*\\.js --out=packages --platform=darwin --arch=all --overwrite ",
+    "package:win": "npm run prod && electron-packager . file-explorer-0.0.1 --ignore=src --ignore=node_modules --ignore=e2e --ignore=.*\\.conf\\.js --ignore=\"(angular-cli|tsconfig)\\.json\" --ignore=webpack.*\\.js --out=packages --platform=win32 --arch=all --overwrite ",
+    "package:all": "npm run prod && electron-packager . file-explorer-0.0.1 --ignore=src --ignore=node_modules --ignore=e2e --ignore=.*\\.conf\\.js --ignore=\"(angular-cli|tsconfig)\\.json\" --ignore=webpack.*\\.js --out=packages --all --overwrite"
   },
   "private": true,
   "dependencies": {

@@ -10,8 +10,8 @@ import {FileElement} from './file-explorer/model/file-element';
   styleUrls: ['./app.component.scss']
 })
 export class AppComponent implements OnInit {
-  private currentPath: string = process.cwd();
-  private entries: Array<FileElement> = [];
+  currentPath: string = process.cwd();
+  entries: Array<FileElement> = [];
   canNavigateUp = false;
 
 
